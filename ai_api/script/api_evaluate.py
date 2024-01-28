@@ -12,8 +12,9 @@ class RequestModel(BaseModel):
 async def request_evaluate(request_model: RequestModel):
     print(request_model.message)
     user_evaluate = get_evaluate(request_model.message)
-    return {"user_rating": user_evaluate['评分'],"user_comments": user_evaluate['评语']}
-
+    # return {"user_rating": user_evaluate['评分'],"user_comments": user_evaluate['评语']}
+    user_evaluate_str = f"评分:{user_evaluate['评分']}Environment.NewLine评语:{user_evaluate['评语']}" 
+    return user_evaluate_str
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)

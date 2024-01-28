@@ -9,31 +9,34 @@ from tools import *
 import cprint
 import random
 
-pet_synthesis_prompt = toml.load("./prompt.toml")['pet_synthesis']
-user_evaluate_prompt = toml.load("./prompt.toml")['user_evaluate']
-user_info =  toml.load("./game_configs.toml")['user_info']
-event_type_ls = toml.load("./prompt.toml")['event_type_ls']
+pet_synthesis_prompt = toml.load("./ai_api/prompt.toml")['pet_synthesis']
+user_evaluate_prompt = toml.load("./ai_api/prompt.toml")['user_evaluate']
+user_info =  toml.load("./ai_api/game_configs.toml")['user_info']
+event_type_ls = toml.load("./ai_api/prompt.toml")['event_type_ls']
 
-def get_pet(props_ls):
-    global pet_synthesis_prompt
+def get_pet(props_str):
+    # global pet_synthesis_prompt
+    pet_synthesis_prompt = toml.load("./ai_api/prompt.toml")['pet_synthesis']
     cprint.cprint.info('===========精灵孵化环节=========')
-
-    if type(props_ls) == list:
-        props_str = ','.join(props_ls) 
-    else:
-        props_str = props_ls
+    # props_str = ''
+    # if type(props_ls) == list:
+    #     props_str = ','.join(props_ls) 
+    # else:
+    #     props_str = props_ls
     print('🧙魔法师放入了',props_str)
     print('🪄正在孵化小精灵')
     pet_synthesis_prompt = pet_synthesis_prompt.replace('{props}',props_str)
     pet_info = get_chatgpt_re(pet_synthesis_prompt,temperature=1.1)
+    # pet_info = '可爱嘟嘟小精灵啊啊啊啊啊啊啊啊啊啊啊啊吃饭v个红包就能开门了，； 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊'
     print('孵化成功！小精灵详细信息为：')
     print(pet_info)
     return pet_info
 
 
 def get_evaluate(pet_info):
-    global user_evaluate_prompt
-    global user_info
+    user_evaluate_prompt = toml.load("./ai_api/prompt.toml")['user_evaluate']
+    user_info =  toml.load("./ai_api/game_configs.toml")['user_info']
+    event_type_ls = toml.load("./ai_api/prompt.toml")['event_type_ls']
     cprint.cprint.info('===========顾客评价环节=========')
     event_type = random.sample(event_type_ls,1)[0]
     print('🤔顾客正在思考评价')
@@ -62,4 +65,8 @@ if __name__ == "__main__":
         props_ls.append(user_input)
     pet_info = get_pet(props_ls)
     user_evaluate_dict = get_evaluate(pet_info)
+
+
+
+
 

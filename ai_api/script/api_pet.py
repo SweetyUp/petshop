@@ -12,7 +12,7 @@ class RequestModel(BaseModel):
 async def request_pet(request_model: RequestModel):
     print(request_model.message)
     pet_info = get_pet(request_model.message)
-    return {"pet_info": pet_info}
+    return pet_info
 
 if __name__ == "__main__":
     import uvicorn

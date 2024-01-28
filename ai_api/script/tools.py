@@ -1,9 +1,7 @@
 
 import os
 from openai import OpenAI
-API_KEY="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"
-
-
+API_KEY="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"
 
 
 
@@ -26,7 +24,7 @@ def get_chatgpt_re(prompt, temperature=1.0,api_key=None):
         try:
             client = OpenAI(
                 # This is the default and can be omitted
-                api_key="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",
+                api_key="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",
             )
 
             chat_completion = client.chat.completions.create(
